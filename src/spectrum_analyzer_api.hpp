@@ -40,9 +40,10 @@ class SpectrumAnalyzer_API : public ApiObject
 	Q_PROPERTY(bool markerTableVisible READ markerTableVisible WRITE
 	           setMarkerTableVisible);
 	Q_PROPERTY(QVariantList markers READ getMarkers);
-	Q_PROPERTY(bool logScale READ getLogScale WRITE setLogScale)
 
+	Q_PROPERTY(bool logScale READ getLogScale WRITE setLogScale)
 	Q_PROPERTY(QString notes READ getNotes WRITE setNotes)
+
 public:
 	Q_INVOKABLE void show();
 	explicit SpectrumAnalyzer_API(SpectrumAnalyzer *sp) :
@@ -99,7 +100,8 @@ class SpectrumChannel_API : public ApiObject
 	Q_PROPERTY(int type READ type WRITE setType);
 	Q_PROPERTY(int window READ window WRITE setWindow);
 	Q_PROPERTY(int averaging READ averaging WRITE setAveraging);
-	Q_PROPERTY(QList<double> data READ data STORED false)
+        Q_PROPERTY(float line_thickness READ lineThickness WRITE setLineThickness);
+        Q_PROPERTY(QList<double> data READ data STORED false)
 	Q_PROPERTY(QList<double> freq READ freq STORED false)
 
 public:
@@ -112,11 +114,13 @@ public:
 	int type();
 	int window();
 	int averaging();
+        float lineThickness();
 
-	void enable(bool);
+        void enable(bool);
 	void setType(int);
 	void setWindow(int);
 	void setAveraging(int);
+        void setLineThickness(float val);
 
 	QList<double> data() const;
 	QList<double> freq() const;
