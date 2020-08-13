@@ -387,6 +387,9 @@ SpectrumAnalyzer::SpectrumAnalyzer(struct iio_context *ctx, Filter *filt,
 	connect(ui->logBtn, &QPushButton::toggled,
 		fft_plot, &FftDisplayPlot::useLogFreq);
 
+	connect(ui->notesEnable, SIGNAL(toggled(bool)), ui->specNotes, SLOT(setVisible(bool)));
+	ui->specNotes->hide();
+
 	api->setObjectName(QString::fromStdString(Filter::tool_name(
 	                           TOOL_SPECTRUM_ANALYZER)));
 	api->load(*settings);
