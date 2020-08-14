@@ -494,9 +494,6 @@ NetworkAnalyzer::NetworkAnalyzer(struct iio_context *ctx, Filter *filt,
 	connect(ui->cmb_graphs,SIGNAL(currentIndexChanged(int)),
 		SLOT(onGraphIndexChanged(int)));
 
-	connect(ui->notesEnable,SIGNAL(toggled(bool)),ui->netNotes,SLOT(setVisible(bool)));
-	ui->netNotes->hide();
-
 	readPreferences();
 
 	api->setObjectName(QString::fromStdString(Filter::tool_name(
@@ -1655,6 +1652,8 @@ void NetworkAnalyzer::readPreferences()
 {
 	m_dBgraph.setShowZero(prefPanel->getNa_show_zero());
 	m_phaseGraph.setShowZero(prefPanel->getNa_show_zero());
+	ui->instrumentNotes->setVisible(prefPanel->getInstrumentNotesActive());
+
 //	autoAdjustGain = prefPanel->getNaGainUpdateEnabled();
 }
 
