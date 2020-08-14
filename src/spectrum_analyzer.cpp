@@ -993,9 +993,17 @@ void SpectrumAnalyzer::stop()
 
 void SpectrumAnalyzer::runStopToggled(bool checked)
 {
+	ui->comboBox_line_thickness->setEnabled(!checked);
+	ui->comboBox_line_thickness->setCurrentIndex(1);
+
 	if (checked) {
 		if (iio) {
 			writeAllSettingsToHardware();
+		}
+
+		for(int i = 0;i < channels.size();i++)
+		{
+			fft_plot->setLineWidth(i, 1);
 		}
 
 		fft_plot->presetSampleRate(sample_rate);
@@ -1180,8 +1188,10 @@ void SpectrumAnalyzer::on_comboBox_line_thickness_currentIndexChanged(int index)
 
     if (width != channels[crt_channel]->lineWidth()) {
         channels[crt_channel]->setLinewidth(width);
-        fft_plot->setLineWidth(crt_channel, width);
-        fft_plot->replot();
+	if(!isRunning()) {
+		fft_plot->setLineWidth(crt_channel, width);
+		fft_plot->replot();
+	}
     }
 }
 
